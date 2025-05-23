@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Higher Lower Game - NEAR Blockchain Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://esm.sh/three@0.160.0?dev",
+            "three/": "https://esm.sh/three@0.160.0&dev/",
+            "troika-three-text": "https://esm.sh/troika-three-text@0.49.0?external=three",
+            "near-api-js": "https://esm.sh/near-api-js@5?dev",
+            "@near-wallet-selector/core": "https://esm.sh/@near-wallet-selector/core?dev",
+            "@near-wallet-selector/my-near-wallet": "https://esm.sh/@near-wallet-selector/my-near-wallet?dev",
+            "@near-wallet-selector/modal-ui": "https://esm.sh/@near-wallet-selector/modal-ui?dev"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="game-container">
+        <!-- NEAR Wallet Interface -->
+        <div id="wallet-interface">
+            <div id="wallet-status">
+                <div id="wallet-disconnected" class="wallet-section">
+                    <h3>🔗 Connect to NEAR</h3>
+                    <p>Connect your NEAR wallet to play with real stakes!</p>
+                    <button id="connect-wallet-btn" class="wallet-btn">Connect Wallet</button>
+                    <button id="play-demo-btn" class="demo-btn">Play Demo (No Stakes)</button>
+                </div>
+                <div id="wallet-connected" class="wallet-section" style="display: none;">
+                    <h3>👛 Wallet Connected</h3>
+                    <p id="account-info">Account: <span id="account-id"></span></p>
+                    <p id="balance-info">Balance: <span id="account-balance">0</span> NEAR</p>
+                    <button id="disconnect-wallet-btn" class="wallet-btn">Disconnect</button>
+                </div>
+            </div>
+            
+            <!-- Staking Interface -->
+            <div id="staking-interface" style="display: none;">
+                <h3>💰 Choose Your Stake</h3>
+                <div id="stake-options">
+                    <label for="stake-amount">Stake Amount (NEAR):</label>
+                    <select id="stake-amount">
+                        <option value="1">1 NEAR</option>
+                        <option value="2">2 NEAR</option>
+                        <option value="5">5 NEAR</option>
+                        <option value="10">10 NEAR</option>
+                    </select>
+                </div>
+                <div id="stake-info">
+                    <p><strong>Rewards:</strong> Get 10% bonus per correct answer!</p>
+                    <p><strong>Developer Fee:</strong> 5% of winnings</p>
+                    <p><strong>Risk:</strong> Lose your stake if you guess wrong</p>
+                </div>
+                <button id="start-blockchain-game-btn" class="stake-btn">Start Blockchain Game</button>
+            </div>
+        </div>
+
+        <!-- Game Scene -->
+        <div id="scene-canvas"></div>
+        
+        <!-- Game UI Overlay -->
+        <div id="ui-overlay">
+            <div id="game-mode-indicator">
+                <span id="mode-text">Demo Mode</span>
+                <span id="stake-display" style="display: none;"></span>
+            </div>
+            
+            <div id="score-display">Score: 0</div>
+            <div id="timer-display">10</div>
+            <div id="message-display"></div>
+            
+            <div id="question-area">
+                <p id="question-text"></p>
+            </div>
+            
+            <div id="controls">
+                <button id="higher-button">Higher</button>
+                <button id="lower-button">Lower</button>
+            </div>
+            
+            <!-- Game Over Screen -->
+            <div id="game-over-screen" style="display: none;">
+                <h2>Game Over!</h2>
+                <p id="final-score"></p>
+                <div id="blockchain-result" style="display: none;">
+                    <p id="earnings-info"></p>
+                </div>
+                <button id="play-again-button">Play Again</button>
+            </div>
+            
+            <!-- Stats and Leaderboard -->
+            <div id="stats-panel" style="display: none;">
+                <div id="player-stats">
+                    <h3>Your Stats</h3>
+                    <p>Games Played: <span id="games-played">0</span></p>
+                    <p>Highest Score: <span id="highest-score">0</span></p>
+                    <p>Total Earnings: <span id="total-earnings">0</span> NEAR</p>
+                </div>
+                
+                <div id="leaderboard">
+                    <h3>🏆 Leaderboard</h3>
+                    <div id="leaderboard-list">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Toggle Stats Button -->
+        <button id="toggle-stats-btn" class="stats-toggle">📊 Stats</button>
+    </div>
+
+    <script type="module" src="main.js"></script>
+    <script src="https://storage.googleapis.com/rosebud_staticfiles/ScriptsLoader-Universal.js"></script>
+    <script src="https://storage.googleapis.com/rosebud_staticfiles/ChatManager.js"></script>
+    <script src="https://storage.googleapis.com/rosebud_staticfiles/ImageGenerator.js"></script>
+    <script src="https://storage.googleapis.com/rosebud_staticfiles/ProgressLogger.js"></script>
+    <script src="https://storage.googleapis.com/rosebud_staticfiles/OGP.js"></script>
+</body>
+</html>
